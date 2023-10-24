@@ -1,0 +1,55 @@
+﻿@page "/products"
+@inject ICatalog Catalog;
+
+
+<h3>Ваш каталог: </h3>
+<br/>
+
+<table>
+	<thead>
+		<tr>
+			<th>
+				Название товара:  
+			</th>
+			<th>
+				Описание товара:  
+			</th>
+			<th>
+				Цена:  
+			</th>
+			<th>
+				Изображение:  
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var prd in _collection)
+		{
+			<tr>
+				<th>
+					@prd.GetName()
+				</th>
+				<th>
+					@prd.GetDescription()
+				</th>
+				<th>
+					@prd.GetPrice()
+				</th>
+				<th>
+					<img src="@prd.GetLinkImg()" width="250px" height="200px"/>
+				</th>
+			</tr>
+		}
+	</tbody>
+</table>
+
+@code
+{
+	private IReadOnlyList<Product> _collection;
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		_collection = Catalog.GetCatalog();
+	}
+}
